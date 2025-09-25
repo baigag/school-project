@@ -163,9 +163,83 @@
       text-decoration: none;
     }
 
+    /* ICT Notice Styling */
+    .ict-notice {
+      max-width: 400px;
+      width: 100%;
+      margin-top: 25px;
+      padding: 20px 25px;
+      background-color: #fff3cd;
+      border-left: 6px solid #ffc107;
+      border-radius: var(--radius);
+      font-size: 16px;
+      color: #856404;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* Popup Styling */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      animation: popIn 0.4s ease;
+    }
+
+    .popup-content h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .popup-content p {
+      margin: 20px 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .popup-btn {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .popup-btn:hover {
+      background-color: #2563eb;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px);}
-      to { opacity: 1; transform: translateY(0);}
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
@@ -175,7 +249,6 @@
     <img src="okufura_logo.png" alt="Okufura Secondary School Logo">
     <h1>Okufura Secondary School</h1>
     <h1>Score Submission Portal</h1>
-    
   </header>
 
   <main>
@@ -206,11 +279,125 @@
         <a id="sheetLink" class="btn disabled" target="_blank">📂 Open Sheet</a>
         <button type="button" class="reset-btn" onclick="resetForm()">Reset</button>
       </div>
+      <!-- Countdown Section -->
+<div class="countdown-section">
+  <h2>Countdown to Wednesday, 8th October 2025</h2>
+  <div class="countdown-container">
+    <div class="countdown-item">
+      <span id="days">00</span>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-item">
+      <span id="hours">00</span>
+      <div class="countdown-label">Hours</div>
+    </div>
+    <div class="countdown-item">
+      <span id="minutes">00</span>
+      <div class="countdown-label">Minutes</div>
+    </div>
+    <div class="countdown-item">
+      <span id="seconds">00</span>
+      <div class="countdown-label">Seconds</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Countdown Section Styling */
+  .countdown-section {
+    max-width: 400px;
+    width: 100%;
+    margin-top: 25px;
+    padding: 20px 25px;
+    background-color: #f0f9ff;
+    border-left: 6px solid #3b82f6;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #1a4d8c;
+    box-shadow: 0 2px 8px rgba(57, 213, 153, 0.15);
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .countdown-section h2 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #1e293b;
+  }
+
+  .countdown-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  .countdown-item {
+    flex: 1;
+    text-align: center;
+  }
+
+  .countdown-item span {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    color: #3b82f6;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .countdown-label {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #64748b;
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Countdown to Deadline Wednesday, 8th October 2025
+  function updateCountdown() {
+    const targetDate = new Date('October 8, 2025 00:00:00').getTime();
+    const now = new Date().getTime();
+    const timeRemaining = targetDate - now;
+    
+    if (timeRemaining < 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      return;
+    }
+    
+    const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  // Update countdown every second
+  setInterval(updateCountdown, 1000);
+  
+  // Initial call
+  updateCountdown();
+</script>
 
       <div class="note">
-      <strong>Note:</strong> Scripts to be checked after entering the scores.
-    </div>
+        <strong>Note:</strong> Scripts to be checked after entering the scores.
+      </div>
 
+      <!-- ICT Team Notice -->
+      <div class="ict-notice">
+        <strong>ICT Team Notice:</strong> We are currently developing the School Management Software for use at the right time.
+      </div>
     </div>
   </main>
 
@@ -218,272 +405,293 @@
     <div>
       © 2025 Okufura Secondary School |
       <a href="https://www.education.go.ug" target="_blank">Ministry</a> |
-      <a href="https://www.uneb.ac.ug" target="_blank">UNEB</a> |
-      <a href="https://www.okufura.ac.ug" target="_blank">School</a>
+      <a href="https://ncdc.go.ug/" target="_blank">NCDC</a> |
+      <a href="https://www.okufura.ac.ug" target="_blank">School Website</a>
     </div>
   </footer>
 
+  <!-- Welcome Popup -->
+  <div id="welcomePopup" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+      <h3>🎉 Congratulations!</h3>
+      <p>You have successfully opened Okufura Secondary School Score Submission Portal.</p>
+      <p>For any difficulty, kindly seek for support.</p>
+      <button class="popup-btn" onclick="closePopup()">Continue</button>
+    </div>
+  </div>
+
   <script>
-  const data = {
-    S1: {
-      East: {
-        MTC: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1242296855",
-        ICT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1984074865",
-        AGR: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=509654451"
+    // Show welcome popup when page loads
+    window.onload = function() {
+      setTimeout(function() {
+        document.getElementById('welcomePopup').style.display = 'flex';
+      }, 500);
+    };
+
+    // Close popup function
+    function closePopup() {
+      document.getElementById('welcomePopup').style.display = 'none';
+    }
+
+    const data = {
+      S1: {
+        East: {
+          MTC: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1242296855",
+          ICT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1984074865",
+          AGR: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=509654451"
+        },
+        Central: {
+          MTC: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1242296855",
+          ICT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1984074865",
+          AGR: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=509654451"},
+        West: {
+          MTC: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1242296855",
+          ICT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1984074865",
+          AGR: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=509654451"}
       },
-      Central: {
-        MTC: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1242296855",
-        ICT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1984074865",
-        AGR: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=509654451"},
-      West: {
-        MTC: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1242296855",
-        ICT: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1984074865",
-        AGR: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/14XyGm6izcunzz8tLn69aeG1E1RCAf191Odkvl_h6M4s/edit?gid=509654451"}
-    },
-    S2: {
-      East: {
-        MTC: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1242296855",
-        AGR: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=509654451"},
-      Central: {
-        MTC: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1242296855",
-        AGR: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=509654451"},
-      West: {
-        MTC: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1242296855",
-        AGR: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=509654451"}
-    },
-    S3: {
-      East: {
-        MTC: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1242296855",
-        AGR: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=509654451",
-        LIT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1825243711",
-        LUG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1477349546"},
-      Central: {
-        MTC: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1242296855",
-        AGR: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=509654451",
-        LIT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1825243711",
-        LUG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1477349546"},
-      West: {
-        MTC: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1396137416",
-        ENG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1328605717",
-        HIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=515591378",
-        GEO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=557789853",
-        PHY: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1338677315",
-        BIO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=713390052",
-        CHEM: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=225360609",
-        ENT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=227842139",
-        PE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=39143109",
-        KIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=115756547",
-        CRE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1242296855",
-        AGR: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=2023206595",
-        ART: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1717687449",
-        TD:  "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=509654451",
-        LIT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1825243711",
-        LUG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1477349546"}
-    },
-    S5: {
-      "N/A": {
-        "MAT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1396137416#gid=1396137416",
-        "PHY": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1338677315#gid=1338677315",
-        "CHEM": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=225360609#gid=225360609",
-        "AGR": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=2023206595#gid=2023206595",
-        "CRE": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1242296855#gid=1242296855",
-        "GEO": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=557789853#gid=557789853",
-        "HIS": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=515591378#gid=515591378",
-        "ART": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1717687449#gid=1717687449",
-        "ENT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=227842139#gid=227842139",
-        "BIO": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=713390052#gid=713390052",
-        "SICT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1984074865#gid=1984074865",
-        "SMAT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=509654451#gid=509654451",
+      S2: {
+        East: {
+          MTC: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1242296855",
+          AGR: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=509654451"},
+        Central: {
+          MTC: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1242296855",
+          AGR: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=509654451"},
+        West: {
+          MTC: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1242296855",
+          AGR: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/1URZ4Iu-oE8zc044qjoASRF6ReRcg7ID7MqsHGPCN4zs/edit?gid=509654451"}
+      },
+      S3: {
+        East: {
+          MTC: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1242296855",
+          AGR: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=509654451",
+          LIT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1825243711",
+          LUG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1477349546"},
+        Central: {
+          MTC: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1242296855",
+          AGR: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=509654451",
+          LIT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1825243711",
+          LUG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1477349546"},
+        West: {
+          MTC: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1396137416",
+          ENG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1328605717",
+          HIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=515591378",
+          GEO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=557789853",
+          PHY: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1338677315",
+          BIO: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=713390052",
+          CHEM: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=225360609",
+          ENT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=227842139",
+          PE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=39143109",
+          KIS: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=115756547",
+          CRE: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1242296855",
+          AGR: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=2023206595",
+          ART: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1717687449",
+          TD:  "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=509654451",
+          LIT: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1825243711",
+          LUG: "https://docs.google.com/spreadsheets/d/1Cch2_lgscZG6jHU1knNEKWAueU-bYN8i1JjJNAD6IUY/edit?gid=1477349546"}
+      },
+      S5: {
+        "N/A": {
+          "MAT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1396137416#gid=1396137416",
+          "PHY": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1338677315#gid=1338677315",
+          "CHEM": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=225360609#gid=225360609",
+          "AGR": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=2023206595#gid=2023206595",
+          "CRE": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1242296855#gid=1242296855",
+          "GEO": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=557789853#gid=557789853",
+          "HIS": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=515591378#gid=515591378",
+          "ART": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1717687449#gid=1717687449",
+          "ENT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=227842139#gid=227842139",
+          "BIO": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=713390052#gid=713390052",
+          "SICT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=1984074865#gid=1984074865",
+          "SMAT": "https://docs.google.com/spreadsheets/d/1uTQCbNEEBo8QuIdYJ3BSIDHaFI6nL7CGla2C76Lp7zg/edit?gid=509654451#gid=509654451",
 
+        }
       }
-    }
-  };
+    };
 
-  const classSelect = document.getElementById("class");
-  const sectionSelect = document.getElementById("section");
-  const subjectSelect = document.getElementById("subject");
-  const sheetLink = document.getElementById("sheetLink");
-  
-  classSelect.addEventListener("change", () => {
-    updateSection();
-    updateSubjects();
-  });
-  
-  sectionSelect.addEventListener("change", updateSubjects);
-  subjectSelect.addEventListener("change", updateLink);
-
-  function updateSection() {
-    const cls = classSelect.value;
+    const classSelect = document.getElementById("class");
+    const sectionSelect = document.getElementById("section");
+    const subjectSelect = document.getElementById("subject");
+    const sheetLink = document.getElementById("sheetLink");
     
-    // Reset section and subject dropdowns
-    sectionSelect.value = "";
-    sectionSelect.disabled = true;
-    subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
-    subjectSelect.disabled = true;
-    sheetLink.removeAttribute("href");
-    sheetLink.classList.add("disabled");
+    classSelect.addEventListener("change", () => {
+      updateSection();
+      updateSubjects();
+    });
+    
+    sectionSelect.addEventListener("change", updateSubjects);
+    subjectSelect.addEventListener("change", updateLink);
 
-    if (cls === 'S5') {
-      // S5 has no sections, so disable the dropdown and set to N/A
-      sectionSelect.innerHTML = '<option value="N/A">N/A</option>';
-      sectionSelect.value = "N/A";
+    function updateSection() {
+      const cls = classSelect.value;
+      
+      // Reset section and subject dropdowns
+      sectionSelect.value = "";
       sectionSelect.disabled = true;
-    } else if (cls) {
-      // S1, S2, S3 have sections, so enable the dropdown
-      sectionSelect.innerHTML = `
-          <option value="">-- Select Section --</option>
-          <option value="East">East</option>
-          <option value="Central">Central</option>
-          <option value="West">West</option>
-      `;
-      sectionSelect.disabled = false;
-    }
-  }
-
-  function updateSubjects() {
-    const cls = classSelect.value;
-    const sec = sectionSelect.value;
-    
-    // Reset subject dropdown and link
-    subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
-    subjectSelect.disabled = true;
-    sheetLink.removeAttribute("href");
-    sheetLink.classList.add("disabled");
-
-    // Enable subject dropdown and populate if both class and section are selected
-    if (cls && sec) {
-      subjectSelect.disabled = false;
-      const subjects = data[cls][sec];
-      if (subjects) {
-        Object.keys(subjects).forEach(subject => {
-          const opt = document.createElement("option");
-          opt.value = subject;
-          opt.text = subject;
-          subjectSelect.add(opt);
-        });
-      }
-    }
-  }
-
-  function updateLink() {
-    const cls = classSelect.value;
-    const sec = sectionSelect.value;
-    const subject = subjectSelect.value;
-    
-    if (cls && sec && subject && data[cls][sec] && data[cls][sec][subject]) {
-      sheetLink.href = data[cls][sec][subject];
-      sheetLink.classList.remove("disabled");
-    } else {
+      subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+      subjectSelect.disabled = true;
       sheetLink.removeAttribute("href");
       sheetLink.classList.add("disabled");
+
+      if (cls === 'S5') {
+        // S5 has no sections, so disable the dropdown and set to N/A
+        sectionSelect.innerHTML = '<option value="N/A">N/A</option>';
+        sectionSelect.value = "N/A";
+        sectionSelect.disabled = true;
+      } else if (cls) {
+        // S1, S2, S3 have sections, so enable the dropdown
+        sectionSelect.innerHTML = `
+            <option value="">-- Select Section --</option>
+            <option value="East">East</option>
+            <option value="Central">Central</option>
+            <option value="West">West</option>
+        `;
+        sectionSelect.disabled = false;
+      }
     }
-  }
-  
-  function resetForm() {
-    classSelect.value = "";
-    updateSection();
-    updateSubjects();
-  }
 
-  // Initial state on page load
-  resetForm();
+    function updateSubjects() {
+      const cls = classSelect.value;
+      const sec = sectionSelect.value;
+      
+      // Reset subject dropdown and link
+      subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+      subjectSelect.disabled = true;
+      sheetLink.removeAttribute("href");
+      sheetLink.classList.add("disabled");
 
-</script>
+      // Enable subject dropdown and populate if both class and section are selected
+      if (cls && sec) {
+        subjectSelect.disabled = false;
+        const subjects = data[cls][sec];
+        if (subjects) {
+          Object.keys(subjects).forEach(subject => {
+            const opt = document.createElement("option");
+            opt.value = subject;
+            opt.text = subject;
+            subjectSelect.add(opt);
+          });
+        }
+      }
+    }
+
+    function updateLink() {
+      const cls = classSelect.value;
+      const sec = sectionSelect.value;
+      const subject = subjectSelect.value;
+      
+      if (cls && sec && subject && data[cls][sec] && data[cls][sec][subject]) {
+        sheetLink.href = data[cls][sec][subject];
+        sheetLink.classList.remove("disabled");
+      } else {
+        sheetLink.removeAttribute("href");
+        sheetLink.classList.add("disabled");
+      }
+    }
+    
+    function resetForm() {
+      classSelect.value = "";
+      updateSection();
+      updateSubjects();
+    }
+
+    // Initial state on page load
+    resetForm();
+  </script>
 </body>
 </html>
